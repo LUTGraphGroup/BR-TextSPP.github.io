@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICD-9 Code Prediction</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="./build/style01.css">
+    <style>
+        /* 简单的模态框样式 */
+        .modal {
+            display: none; /* 隐藏模态框 */
+            position: fixed; /* 固定定位 */
+            z-index: 1; /* 确保模态框在最上层 */
+            left: 0;
+            top: 0;
+            width: 100%; /* 全屏宽度 */
+            height: 100%; /* 全屏高度 */
+            overflow: auto; /* 允许滚动 */
+            background-color: rgba(0,0,0,0.4); /* 半透明背景 */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 居中显示 */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* 宽度为80% */
+            max-height: 80%; /* 限制最大高度 */
+            overflow-y: auto; /* 允许滚动 */
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+
+        /* 设置清除按钮的样式 */
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        /* 输入框的样式 */
+        #Description {
+            width: 60%;
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        /* 结果显示区域的样式 */
+        #modal-results {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        /* 例子模态框样式 */
+        #exampleModal .modal-content {
+            max-height: 50%; /* 限制最大高度 */
+            overflow-y: auto; /* 允许滚动 */
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>ICD-9 Code Prediction</h1>
+        <p>Improved automatic ICD coding based on fusion of multi-scale features
+            and fine-tuned pre-training models</p>
+    </header>
+    <div class="container">
+        <div class="intro">
+            <h2>Introduction</h2>
+            <p>This tool focuses on using ICD code descriptions to predict ICD-9 codes</p>
+        </div>
+        <div class="intro">
+            <h2>Data Support</h2>
+            <p>The dataset malice for this thesis was downloaded from <a href="https://physionet.org/content/mimiciii/1.4/" target="_blank">here</a>.</p>
+        </div>
+        <!-- 输入框的 id 保持为 Description -->
+        <input type="text" id="Description" placeholder="Enter Characterization" />
+        <button onclick="queryDisease()">Search</button>
+        <button onclick="clearInput()">Clear</button>
+        <button id="ex" onclick="showExampleModal()">Example</button>
+    </div>
+
+    <!-- 模态框 -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Query Results</h2>
+            <div id="modal-results"></div> <!-- 保留模态框内的 id="modal-results" -->
+        </div>
+    </div>
+
+    <!-- 例子模态框 -->
+    <div id="exampleModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeExampleModal()">&times;</span>
+            <h2>Example</h2>
+            <p id="exampleText">salmonella osteomyelitis and it's  serious.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; ICD-9 Code Description Prediction</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="./build/script.js"></script> <!-- 引入外部 JavaScript 文件 -->
+
+    <script>
+        // 显示例子模态框
+        function showExampleModal() {
+            document.getElementById('exampleModal').style.display = 'block';
+        }
+
+        // 关闭例子模态框
+        function closeExampleModal() {
+            document.getElementById('exampleModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
